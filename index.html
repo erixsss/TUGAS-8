@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo List Sederhana</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body class="background">
+    <div class="container">
+        <h1 class="marginH1">TODO LIST</h1>
+    </div>
+
+    <div class="container">
+        <input id="input" placeholder="Tulis Rencanamu Hari ini..." type="text">
+        <span id="button-kirim" onclick="kirim()" type="button" class="addBtn btn btn-warning">enter</span>
+        <span id="button-reset" onclick="reset()" type="button" class="addBtn btn btn-danger">reset</span>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <ul id="listUL" class="list-group list-group-flush">
+
+        </ul>
+    </div>
+
+    <script>
+        const inputDOM = document.getElementById('input');
+        const buttonDOM = document.getElementById('button-kirim');
+        const listULDOM = document.getElementById('listUL');
+        const dataStorage = localStorage.getItem('listHTML');
+        listULDOM.innerHTML = dataStorage;
+
+        function kirim() {
+            if (inputDOM.value === "") {
+                alert('Tulis Rencanamu Hari ini...');
+            }
+            else {
+                const valueInput = inputDOM.value;
+                listULDOM.innerHTML = listULDOM.innerHTML + '<li class="list-group-item transparan">' + valueInput + '</li>';
+                inputDOM.value = "";
+                localStorage.setItem('listHTML', listULDOM.innerHTML);
+            }
+        };
+
+        function reset() {
+            localStorage.clear();
+            listULDOM.innerHTML = '';
+        }
+
+        inputDOM.addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("button-kirim").click();
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>
